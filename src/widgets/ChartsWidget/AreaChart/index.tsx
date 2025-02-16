@@ -18,92 +18,52 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { FC } from 'react';
-const chartData2 = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
-];
-
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'hsl(var(--chart-1))',
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'hsl(var(--chart-2))',
-  },
-} satisfies ChartConfig;
 
 interface AreaChartProps {
   chartData: {}[];
 }
 
-export const AreaChartComponent: FC<AreaChartProps> = ({ chartData }) => {
+export const balanceData = [
+  { district: 'Медеуский', balance: 12 },
+  { district: 'Турксибский', balance: 30 },
+  { district: 'Алмалинский', balance: 5 },
+  { district: 'Ауэзовский', balance: 6 },
+  { district: 'Бостандыкский', balance: 40 },
+  { district: 'Жетысуский', balance: 20 },
+];
+
+interface AreaChartComponentProps {
+  chartData: { district: string; balance: number }[];
+}
+
+export const AreaChartComponent: FC<AreaChartComponentProps> = ({
+  chartData,
+}) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Area Chart - Stacked</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
+        <CardTitle>Bonus Balance per District</CardTitle>
+        <CardDescription>Total bonuses by district</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData2}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
+        <ChartContainer
+          config={{
+            balance: { label: 'Balance', color: 'hsl(var(--chart-4))' },
+          }}
+        >
+          {/* <AreaChart data={balanceData}> */}
+          <AreaChart data={chartData}>
             <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
+            <XAxis dataKey="district" tickLine={false} axisLine={false} />
+            <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
             <Area
-              dataKey="mobile"
-              type="natural"
-              fill="var(--color-mobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              stackId="a"
+              dataKey="balance"
+              fill="var(--color-balance)"
+              stroke="var(--color-balance)"
             />
           </AreaChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
-            </div>
-          </div>
-        </div>
-      </CardFooter> */}
     </Card>
   );
 };

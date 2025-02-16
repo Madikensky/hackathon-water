@@ -18,65 +18,96 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { FC } from 'react';
-const chartData2 = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
-];
 
 const chartConfig = {
   desktop: {
-    label: 'Desktop',
+    label: 'Adults',
     color: 'hsl(var(--chart-1))',
   },
   mobile: {
-    label: 'Mobile',
+    label: 'Children',
     color: 'hsl(var(--chart-2))',
+  },
+  tenants: {
+    label: 'Tenants',
+    color: 'hsl(var(--chart-3))',
   },
 } satisfies ChartConfig;
 
 interface BarChartProps {
-  chartData: {}[];
+  chartData?: {
+    district: string;
+    adults: number;
+    children: number;
+    renters: number;
+  }[];
 }
+
+const mockBarChartData = [
+  { district: 'Алмалинский', adults: 120, children: 80, tenants: 30 },
+  { district: 'Бостандыкский', adults: 90, children: 60, tenants: 20 },
+  { district: 'Медеуский', adults: 150, children: 100, tenants: 50 },
+  { district: 'Ауэзовский', adults: 110, children: 70, tenants: 25 },
+  { district: 'Турксибский', adults: 130, children: 90, tenants: 40 },
+];
 
 export const BarChartComponent: FC<BarChartProps> = ({ chartData }) => {
   return (
-    <Card>
+    <Card className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-900">
       <CardHeader>
-        <CardTitle>Bar Chart - Multiple</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+          Population by District
+        </CardTitle>
+        <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
+          Adults, Children, and Tenants
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData2}>
-            <CartesianGrid vertical={false} />
+          <BarChart
+            accessibilityLayer
+            // data={mockBarChartData}
+            data={chartData}
+            className="w-full h-80"
+          >
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="4 4"
+              strokeOpacity={0.5}
+            />
             <XAxis
-              dataKey="month"
+              dataKey="district"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
+              className="text-gray-700 dark:text-gray-300"
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar
+              dataKey="adults"
+              fill="#4F46E5"
+              radius={[6, 6, 0, 0]}
+              barSize={24}
+            />
+            <Bar
+              dataKey="children"
+              fill="#EC4899"
+              radius={[6, 6, 0, 0]}
+              barSize={24}
+            />
+            <Bar
+              dataKey="tenants"
+              fill="#10B981"
+              radius={[6, 6, 0, 0]}
+              barSize={24}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter> */}
     </Card>
   );
 };

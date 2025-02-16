@@ -41,6 +41,12 @@ export const columns: TableProps<UserData>['columns'] = [
     render: (text) => <a>{text}</a>,
   },
   {
+    title: 'District',
+    dataIndex: 'district',
+    key: 'district',
+    render: (text) => <a>{text}</a>,
+  },
+  {
     title: 'Residents',
     key: 'residents',
     dataIndex: 'resident',

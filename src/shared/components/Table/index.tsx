@@ -17,6 +17,7 @@ export interface UserData {
     balance: number;
     lastUpdate: string;
   };
+  district: string;
 }
 
 type TableColumnType = ColumnsType<UserData>;
