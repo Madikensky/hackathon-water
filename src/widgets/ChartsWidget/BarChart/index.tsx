@@ -28,8 +28,8 @@ const chartConfig = {
     label: 'Children',
     color: 'hsl(var(--chart-2))',
   },
-  tenants: {
-    label: 'Tenants',
+  renters: {
+    label: 'Renters',
     color: 'hsl(var(--chart-3))',
   },
 } satisfies ChartConfig;
@@ -59,7 +59,7 @@ export const BarChartComponent: FC<BarChartProps> = ({ chartData }) => {
           Population by District
         </CardTitle>
         <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
-          Adults, Children, and Tenants
+          Adults, Children, and Renters
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -100,7 +100,7 @@ export const BarChartComponent: FC<BarChartProps> = ({ chartData }) => {
               barSize={24}
             />
             <Bar
-              dataKey="tenants"
+              dataKey="renters"
               fill="#10B981"
               radius={[6, 6, 0, 0]}
               barSize={24}

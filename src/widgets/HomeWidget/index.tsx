@@ -43,7 +43,8 @@ export const HomeWidget = () => {
           district: user.district || 'null',
           adults: user.resident?.adults || 0,
           children: user.resident?.children || 0,
-          renters: user.resident?.renters || 0,
+          // renters: user.resident?.renters || 3,
+          renters: 3,
         };
         const obj2 = {
           district: user.district || 'null',
