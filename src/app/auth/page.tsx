@@ -1,7 +1,7 @@
 'use client';
 
+import { AuthForm } from '@/widgets/AuthWidget';
 import '@ant-design/v5-patch-for-react-19';
-import { AuthForm } from '@/features/AuthForm';
 import { FC } from 'react';
 
 const Auth: FC = () => {
